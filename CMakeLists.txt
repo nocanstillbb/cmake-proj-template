@@ -6,14 +6,26 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Core REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Gui Widgets Quick Qml QuickControls2   REQUIRED)
+find_package(prism COMPONENTS container qt::modular qt::core qt::core)
+
 
 #
 set(SOURCE_FILES
-    src/Foo.cpp
+    src/projectname.h
+    src/projectname.cpp
 )
 
 
-add_library(${PROJECT_NAME}  SHARED  ${SOURCE_FILES})
+add_library(${PROJECT_NAME}  SHARED  ${SOURCE_FILES}
+    src/projectname.qrc
+)
+
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE PROJECTNAME_LIBRARY)
 
@@ -22,6 +34,26 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include/${PROJECT_NAME}>
 )
+
+
+
+
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    prism::prism
+    prism::container
+    prism::qt::modular
+    prism::qt::core
+    prism::qt::ui
+    Qt${QT_VERSION_MAJOR}::Core
+    Qt${QT_VERSION_MAJOR}::Gui
+    Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::Quick
+    Qt${QT_VERSION_MAJOR}::Qml
+    Qt${QT_VERSION_MAJOR}::QuickTemplates2Private
+    Qt${QT_VERSION_MAJOR}::QuickControls2)
+
+
+
 
 
 #

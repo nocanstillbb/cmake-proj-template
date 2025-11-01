@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>projectname/views/MainWin.qml</file>
+        <file>projectname/views/exampleContent.qml</file>
+        <file>projectname/views/MainLinux.qml</file>
+        <file>projectname/views/MainMac.qml</file>
+    </qresource>
+</RCC>
